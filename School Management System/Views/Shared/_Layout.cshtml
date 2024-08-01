@@ -4,31 +4,137 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - School_Management_System</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+          rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">School_Management_System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <!-- Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <div class="container-fluid justify-content-between">
+                <!-- Left elements -->
+                <div class="d-flex">
+                    <!-- Brand -->
+                    <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+                        <img src="~/Assets/Asset 1.svg"
+                             height="20"
+                             alt="MDB Logo"
+                             loading="lazy"
+                             style="margin-top: 2px;" />
+                    </a>
                 </div>
+                <!-- Left elements -->
+                <!-- Center elements -->
+                <ul class="navbar-nav flex-row d-none d-md-flex">
+                    <form class="input-group w-auto my-auto d-none d-sm-flex">
+                        <input autocomplete="off"
+                               type="search"
+                               class="form-control"
+                               placeholder="Search here..."
+                               style="min-width: 450px; border-radius: 50px" />
+                        <span class="input-group-text border-0 d-none d-lg-flex">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </form>
+                </ul>
+                <!-- Center elements -->
+                <!-- Right elements -->
+                <ul class="navbar-nav flex-row">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               aria-expanded="false">
+                                <i class="fas fa-comments fa-lg"></i>
+
+                                <span class="badge rounded-pill badge-notification bg-danger">6</span>
+                            </a>
+                        </li>
+                        <li class="nav-item me-3 me-lg-1">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               aria-expanded="false">
+                                <i class="fas fa-bell fa-lg"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">12</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown me-3 me-lg-1">
+                            <a data-mdb-dropdown-init class="nav-link dropdown-toggle d-sm-flex align-items-sm-center hidden-arrow" href="#">
+                                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"
+                                     class="rounded-circle"
+                                     height="22"
+                                     id="navbarDropdownMenuLink"
+                                     alt="Black and White Portrait of a Man"
+                                     loading="lazy" />
+                                <strong class="d-none d-sm-block ms-1">@User.Identity.Name</strong>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item">Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit();">Logout</a>
+                                </li>
+                                <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" style="display:none;">
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            </ul>
+                        </li>
+                    }
+                    
+                </ul>
+                <!-- Right elements -->
             </div>
         </nav>
+        <!-- Navbar -->
     </header>
+
+    <div class="sidebar">
+        <div class="top-section">
+            <h5 class="text-center">School Mate</h5>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="@Url.Action("Index", "UserManagement")">User Management</a>
+            <a href="@Url.Action("Index", "Mark")">Marks Management</a>
+            <a href="@Url.Action("Index", "Attendance")">Attendance</a>
+            <a href="@Url.Action("Index", "LeaveManagement")">Leave Management</a>
+            <a href="@Url.Action("Index", "Payroll")">Payroll Management</a>
+        }
+        @if (User.IsInRole("Teacher"))
+        {
+            <a href="@Url.Action("Index", "Mark")">Marks Management</a>
+            <a href="@Url.Action("Index", "Attendance")">Attendance</a>
+            <a href="@Url.Action("ApplyLeave", "LeaveManagement")">Apply for Leave</a>
+            <a href="@Url.Action("Index", "MedicalClaims")">Medical Claims</a>
+        }
+        @if (User.IsInRole("Clerk"))
+        {
+            <a href="@Url.Action("Index", "UserManagement")">User Management</a>
+            <a href="@Url.Action("Index", "Mark")">Marks Management</a>
+            <a href="@Url.Action("Index", "Attendance")">Attendance</a>
+            <a href="@Url.Action("Index", "LeaveManagement")">Leave Management</a>
+            <a href="@Url.Action("Index", "Payroll")">Payroll Management</a>
+        }
+
+        <div class="footer-section">
+            <p>&copy; 2024 School Mate</p>
+        </div>
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -41,7 +147,9 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

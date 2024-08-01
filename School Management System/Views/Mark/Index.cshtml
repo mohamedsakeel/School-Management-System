@@ -1,0 +1,85 @@
+﻿@model School_Management_System.Models.MarksEntryViewModel
+
+@{
+    ViewData["Title"] = "Enter Marks";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<style>
+    .custom-table {
+        border-radius: 10px;
+        overflow: hidden;
+        border-collapse: separate;
+    }
+
+    .custom-table thead {
+        background-color: #6c757d; /* Adjust to match your theme color */
+        color: white;
+    }
+
+    .custom-table th, .custom-table td {
+        border: 1px solid #dee2e6;
+        padding: 8px;
+    }
+
+    .custom-table th:first-child, .custom-table td:first-child {
+        border-left: none;
+    }
+
+    .custom-table th:last-child, .custom-table td:last-child {
+        border-right: none;
+    }
+
+    .custom-table tbody tr:nth-child(even) {
+        background-color: #f8f9fa; /* Light grey background for even rows */
+    }
+    
+    .custom-table tbody tr:hover {
+        background-color: #e9ecef; /* Slightly darker background on hover */
+    }
+
+    .custom-table-container {
+        padding: 20px;
+        background-color: #ffffff; /* White background for the table container */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a professional look */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
+
+<div class="custom-table-container">
+    <form asp-action="SaveMarks" method="post">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    @foreach (var subject in Model.Subjects)
+                    {
+                        <th>@subject.Name</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@student.Name (@student.IndexNumber)</td>
+                        @foreach (var subject in Model.Subjects)
+                        {
+                            <td>
+                                <input type="number" name="Marks[@student.StudentId][@subject.SubjectId]" class="form-control" value="@Model.Marks[student.StudentId][subject.SubjectId]" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Save Marks</button>
+    </form>
+</div>
+
