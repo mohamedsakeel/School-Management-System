@@ -28,7 +28,7 @@ namespace School_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -57,6 +57,8 @@ namespace School_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(model.Email);
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
@@ -71,6 +73,7 @@ namespace School_Management_System.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

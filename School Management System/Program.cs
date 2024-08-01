@@ -11,7 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie();
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Example setting
+    });
 
 var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
@@ -21,6 +26,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -106,13 +112,48 @@ using (var scope = app.Services.CreateScope())
 
     string email = "admin@sms.com";
     string password = "Admin@123";
+    string fname = "SuperAdmin";
+    string lname = "Admin";
+
+    string temail = "teacher@sms.com";
+    string tpassword = "Teacher@123";
+    string tfname = "John";
+    string tlname = "Doe";
+
+    if (await userManager.FindByEmailAsync(temail) == null)
+    {
+        //var user = new ApplicationUser();
+        //user.UserName = email;
+        //user.Email = email;
+
+        var teacher = new ApplicationUser
+        {
+            UserName = temail,
+            Email = temail,
+            FirstName = tfname,
+            LastName = tlname,
+        };
+        
+        
+        
+        
+        //await userManager.CreateAsync(user, password);
+        await userManager.CreateAsync(teacher, tpassword);
+
+        await userManager.AddToRoleAsync(teacher, "Teacher");
+    }
 
     if (await userManager.FindByEmailAsync(email) == null)
     {
-        var user = new ApplicationUser();
-        user.UserName = email;
-        user.Email = email;
+        var user = new ApplicationUser
+        {
+            UserName = email,
+            Email = email,
+            FirstName = fname,
+            LastName = lname,
+        };
         
+
         await userManager.CreateAsync(user, password);
 
         await userManager.AddToRoleAsync(user, "Admin");
