@@ -4,8 +4,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School Management System", "School Management System\School Management System.csproj", "{AF51583C-08A7-4172-8EDB-BB0E1D68D6C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{33B4E384-DE2C-4CB1-A251-D55005344427} = {33B4E384-DE2C-4CB1-A251-D55005344427}
+		{5693A424-3CD6-4DC9-AD7F-8587B82144F5} = {5693A424-3CD6-4DC9-AD7F-8587B82144F5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementSystem.Domain", "SchoolManagementSystem.Domain\SchoolManagementSystem.Domain.csproj", "{B41DF427-D160-4BEE-B968-8C633A0BA0C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagementSystem.Domain", "SchoolManagementSystem.Domain\SchoolManagementSystem.Domain.csproj", "{B41DF427-D160-4BEE-B968-8C633A0BA0C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School Management System.AppHost", "School Management System.AppHost\School Management System.AppHost.csproj", "{B6E18DE4-6DE9-44D7-833B-3019623B5A38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School Management System.ServiceDefaults", "School Management System.ServiceDefaults\School Management System.ServiceDefaults.csproj", "{71D25213-AF55-4886-83B5-87F1F68786E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagementSystem.AppCore", "SchoolManagementSystem.AppCore\SchoolManagementSystem.AppCore.csproj", "{33B4E384-DE2C-4CB1-A251-D55005344427}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagementSystem.Infrastructure", "SchoolManagementSystem.Infrastructure\SchoolManagementSystem.Infrastructure.csproj", "{5693A424-3CD6-4DC9-AD7F-8587B82144F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementSystem.Notification", "SchoolManagementSystem.Notification\SchoolManagementSystem.Notification.csproj", "{8C9AE3DE-96C7-4F75-859D-FC282003AD54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +35,26 @@ Global
 		{B41DF427-D160-4BEE-B968-8C633A0BA0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B41DF427-D160-4BEE-B968-8C633A0BA0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B41DF427-D160-4BEE-B968-8C633A0BA0C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E18DE4-6DE9-44D7-833B-3019623B5A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E18DE4-6DE9-44D7-833B-3019623B5A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E18DE4-6DE9-44D7-833B-3019623B5A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E18DE4-6DE9-44D7-833B-3019623B5A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D25213-AF55-4886-83B5-87F1F68786E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D25213-AF55-4886-83B5-87F1F68786E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D25213-AF55-4886-83B5-87F1F68786E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D25213-AF55-4886-83B5-87F1F68786E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B4E384-DE2C-4CB1-A251-D55005344427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B4E384-DE2C-4CB1-A251-D55005344427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B4E384-DE2C-4CB1-A251-D55005344427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B4E384-DE2C-4CB1-A251-D55005344427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5693A424-3CD6-4DC9-AD7F-8587B82144F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5693A424-3CD6-4DC9-AD7F-8587B82144F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5693A424-3CD6-4DC9-AD7F-8587B82144F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5693A424-3CD6-4DC9-AD7F-8587B82144F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C9AE3DE-96C7-4F75-859D-FC282003AD54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C9AE3DE-96C7-4F75-859D-FC282003AD54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C9AE3DE-96C7-4F75-859D-FC282003AD54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C9AE3DE-96C7-4F75-859D-FC282003AD54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

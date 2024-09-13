@@ -1,11 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using School_Management_System.Data;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolManagementSystem.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SchoolManagementSystem.Infrastructure;
+using SchoolManagementSystem.AppCore.Repositories;
+using SchoolManagementSystem.AppCore.Interfaces;
+using Hangfire;
+using HangfireBasicAuthenticationFilter;
+using SchoolManagementSystem.Notification;
+using School_Management_System.BackgroundTasks;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,6 +28,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionString));
+
+builder.Services.AddHangfire((sp, config) =>
+{
+    config.UseSqlServerStorage(ConnectionString);
+});
+
+builder.Services.AddHangfireServer();
+
+//Dependency Injection
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBackgroundTasks, BackgroundTasks>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+
 
 //Add Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -66,6 +90,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
+app.MapDefaultEndpoints();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -87,6 +113,21 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//Hangfire Dashboard
+app.UseHangfireDashboard("/jobs/hangfire", new DashboardOptions
+{
+    DashboardTitle = "SMS Background Jobs",
+    Authorization = new[]
+    {
+        new HangfireCustomBasicAuthenticationFilter
+        {
+            User = "admin",
+            Pass = "admin123"
+        }
+    }
+});
+
 
 
 //Seed Roles

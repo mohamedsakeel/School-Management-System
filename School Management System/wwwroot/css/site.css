@@ -17,6 +17,14 @@ html {
   min-height: 100%;
 }
 
+.container1 {
+    display: flex;
+    grid-template-columns: 250px 1fr; /* Sidebar + Content */
+    grid-template-rows: auto 1fr auto; /* Navbar, Content, Footer */
+    min-height: 100vh;
+    gap: 10px; /* Adjust gap between columns if needed */
+}
+
 body {
   margin-bottom: 60px;
 }
@@ -33,6 +41,12 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
 }
 
 .sidebar .top-section {
@@ -68,17 +82,44 @@ body {
 }
 
 .content-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    margin-left: 250px; /* Width of the sidebar */
+    transition: margin-left 0.3s ease;
+}
+
+.content-wrapper.collapsed {
+    margin-left: 0;
 }
 
 .navbar {
     margin-left: 250px; /* Width of the sidebar */
+    transition: margin-left 0.3s ease;
+}
+
+.navbar.collapsed {
+    margin-left: 0;
 }
 
 .content {
-    flex: 1;
     padding: 20px;
-    margin-left: 250px; /* Width of the sidebar */
 }
+
+/* Hide the loading overlay by default */
+.loading-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it’s on top of other content */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    /* Style the loading SVG */
+    .loading-overlay img {
+        width: 100px; /* Adjust size as needed */
+        height: auto;
+    }

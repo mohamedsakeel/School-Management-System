@@ -1,30 +1,107 @@
-﻿@{
-    ViewData["Title"] = "Login Page";
+﻿@model School_Management_System.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutLogin";
 }
 
-@model School_Management_System.Models.LoginViewModel
+<style>
+    body {
+        height: 100%;
+    }
 
-<h2>Login</h2>
+    .background-radial-gradient {
+        background-color: hsl(218, 41%, 15%);
+        background-image: radial-gradient(650px circle at 0% 0%, hsl(218, 41%, 35%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(218, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%);
+        height: 100vh; /* Full viewport height */
+        width: 100vw; /* Full viewport width */
+        position: absolute; /* Ensure it covers the entire page */
+        top: 0;
+        left: 0;
+    }
 
-<form asp-action="Login" asp-controller="Account" method="post">
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="control-label"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input asp-for="RememberMe" class="form-check-input" />
-            <label asp-for="RememberMe" class="form-check-label"></label>
+    #radius-shape-1 {
+        height: 220px;
+        width: 220px;
+        top: -60px;
+        left: -130px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+    }
+
+    #radius-shape-2 {
+        border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+        bottom: -60px;
+        right: -110px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+    }
+
+    .bg-glass {
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter: saturate(200%) blur(25px);
+    }
+</style>
+<!-- Section: Design Block -->
+
+<div class="background-radial-gradient overflow-hidden d-flex align-items-center">
+
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                    Streamline School Management <br />
+                    <span style="color: hsl(218, 81%, 75%)">with a Comprehensive System</span>
+                </h1>
+                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                    Experience enhanced efficiency, improved communication, and streamlined processes
+                    that contribute to a more organized and productive educational environment
+                </p>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                <div class="card bg-glass">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <form asp-action="Login" asp-controller="Account" method="post">
+                            <!-- Email input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input asp-for="Email" type="email" id="form3Example3" class="form-control" />
+                                <label asp-for="Email" class="form-label">Email address</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <!-- Password input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input asp-for="Password" type="password" id="form3Example4" class="form-control" />
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input asp-for="RememberMe" class="form-check-input me-2" type="checkbox" id="form2Example33" checked />
+                                <label asp-for="RememberMe" class="form-check-label">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+                                Sign In
+                            </button>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Login</button>
-    </div>
-</form>
+</div>
 
+<!-- Section: Design Block -->

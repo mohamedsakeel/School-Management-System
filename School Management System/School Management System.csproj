@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.8.14" />
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
@@ -19,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\School Management System.ServiceDefaults\School Management System.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\SchoolManagementSystem.AppCore\SchoolManagementSystem.AppCore.csproj" />
     <ProjectReference Include="..\SchoolManagementSystem.Domain\SchoolManagementSystem.Domain.csproj" />
+    <ProjectReference Include="..\SchoolManagementSystem.Infrastructure\SchoolManagementSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolManagementSystem.Notification\SchoolManagementSystem.Notification.csproj" />
   </ItemGroup>
 
 </Project>
