@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - School_Management_System</title>
+    <title>@ViewData["Title"] - School Management System</title>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           rel="stylesheet" />
@@ -13,25 +13,38 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
           rel="stylesheet" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 
 </head>
 <body>
+    <!-- Loading SVG -->
+    <div id="loading-overlay" class="loading-overlay">
+        <img src="~/Assets/infinite-spinner.svg" alt="Loading..." />
+    </div>
+    
     <header>
         <!-- Navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <a id="sidebarToggle" class="btn btn-link">
+                <i class="fa-solid fa-bars" style="
+                   font-size: 20px;"></i>
+            </a>
             <div class="container-fluid justify-content-between">
+                
+                
                 <!-- Left elements -->
                 <div class="d-flex">
                     <!-- Brand -->
-                    <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+                    <a class="navbar-brand me-2 mb-1 d-flex align-items-left" href="#">
                         <img src="~/Assets/Asset 1.svg"
                              height="20"
                              alt="MDB Logo"
                              loading="lazy"
                              style="margin-top: 2px;" />
                     </a>
+                    
                 </div>
                 <!-- Left elements -->
                 <!-- Center elements -->
@@ -106,14 +119,16 @@
     <div class="sidebar">
         <div class="top-section">
             <h5 class="text-center">School Mate</h5>
+            
         </div>
         @if (User.IsInRole("Admin"))
         {
-            <a href="@Url.Action("Index", "UserManagement")">User Management</a>
             <a href="@Url.Action("Index", "Mark")">Marks Management</a>
             <a href="@Url.Action("Index", "Attendance")">Attendance</a>
             <a href="@Url.Action("Index", "LeaveManagement")">Leave Management</a>
             <a href="@Url.Action("Index", "Payroll")">Payroll Management</a>
+            <a href="@Url.Action("Index", "User")">User Management</a>
+            <a href="@Url.Action("Index", "Role")">Role Management</a>
         }
         @if (User.IsInRole("Teacher"))
         {
@@ -135,21 +150,22 @@
             <p>&copy; 2024 School Mate</p>
         </div>
     </div>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <div class="content-wrapper">
         <div class="container">
-            &copy; 2024 - School_Management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
+    
+
+    
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- MDB -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

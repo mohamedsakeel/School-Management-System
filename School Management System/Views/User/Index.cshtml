@@ -1,0 +1,99 @@
+﻿@model IEnumerable<UserViewModel>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2>User Details</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-toggle="modal" data-mdb-target="#userModal" onclick="openAddUserModal();">
+                Add User
+            </button>
+        </div>
+    </div>
+
+    
+    <div class="table-responsive">
+    <table id="usersTable" class="table" data-mdb-datatable-init>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <span class="badge badge-success rounded-pill d-inline">@user.SelectedRole</span>
+                    </td>
+                    <td>@user.PhoneNumber</td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="openEditUserModal('@user.Id', '@user.FirstName', '@user.LastName', '@user.Email', '@user.PhoneNumber', '@user.RoleId')">Edit User</button>
+                        <button class="btn btn-danger" onclick="deleteUser('@user.Id')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm" asp-action="SaveUser" asp-controller="User" method="post">
+                    <input type="hidden" id="userId" name="Id" />
+                    <div class="mb-3">
+                        <label for="FirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="FirstName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="LastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="LastName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="Email" required />
+                        <p class="text-danger">Password will be sent to this email</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="PhoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="PhoneNumber" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="SelectedRole" class="form-label">Role</label>
+                        <select class="form-select" id="role" name="SelectedRole">
+                            <option value="">Select Role</option>
+                            @foreach (var role in Model.First().Roles)
+                            {
+                                <option value="@role.Value">@role.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="modalSubmitButton">Save Changes</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/User.js"></script>

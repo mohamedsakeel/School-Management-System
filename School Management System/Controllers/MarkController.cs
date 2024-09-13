@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using School_Management_System.Data;
 using School_Management_System.Models;
 using SchoolManagementSystem.Domain.Models;
+using SchoolManagementSystem.Infrastructure;
 
 namespace School_Management_System.Controllers
 {
