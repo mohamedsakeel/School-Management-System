@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\School Management System.ServiceDefaults\School Management System.ServiceDefaults.csproj" />
     <ProjectReference Include="..\SchoolManagementSystem.AppCore\SchoolManagementSystem.AppCore.csproj" />
     <ProjectReference Include="..\SchoolManagementSystem.Domain\SchoolManagementSystem.Domain.csproj" />
     <ProjectReference Include="..\SchoolManagementSystem.Infrastructure\SchoolManagementSystem.Infrastructure.csproj" />
